@@ -116,3 +116,79 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+////////////////////////////////////////////
+// END of Code
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // TODO: search by traits
+/////////////////////////////////////////////
+}
+
+
+function searchByGender(people){
+  let wantedGender = promptFor("What is the person's gender?", chars);
+
+  let foundGender = people.filter(function(person){
+    if(person.gender === gender){
+      return true;
+    }
+    else{
+      return false;
+    }
+
+
+  })
+/////////////////////////////////////////////////////////////////
+
+function searchByDob(people){
+  let wantedDob = promptFor("What is the person's date of birth X/XX/XX?", chars);
+
+  let foundDob = people.filter(function(person){
+    if(person.dob === dob){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+///////////////////////////////////////////////////////////////////
+
+function searchByHeight(people){
+  let wantedHeight = promptFor("What is the person's height in inches?", chars);
+
+  let foundHeight = people.filter(function(person){
+    if(person.height === height){
+      return true;
+    }
+      else{
+        return false;
+      }
+
+  })
+
+////////////////////////////////////////////////////////////////////
+
+
+
+
+
+// function searchByWeight
+
+// function searchByEyeColor
+
+// function searchByOccupation
+
+// function searchByParents
+
+// function searchByCurrentSpouse
