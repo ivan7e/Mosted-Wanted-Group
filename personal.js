@@ -142,7 +142,7 @@ function chars(input){
 
 
 
-function searchById(people){
+function searchById(id, people){
 
 
     let foundId = people.filter(function(person){

@@ -5,14 +5,17 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
+
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
+
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
       break;
     case 'no':
-
+      searchResults = searchTraits(people);//this needs to hold multiples
+      
       break;
       default:
     app(people); // restart app
@@ -54,7 +57,7 @@ function mainMenu(person, people){
     case "restart":
     app(people); // restart
     break;
-    
+
     case "quit":
     return; // stop execution
     default:
@@ -117,66 +120,79 @@ function chars(input){
   return true; // default validation only
 }
 ////////////////////////////////////////////
-// END of Code
 
+let genderResults = [];
+let heightResults = [];
 
+function searchTraits(people){
+  let findTraits = promptFor("Search by 'Gender', 'Height', 'Weight', 'dob', 'eyeColor', 'Occupation'.", chars);
+  let results = [];
+  switch(findTraits){
+    case 'Height': 
+      
+      break;
+    case 'Weight':
 
+    break;
+    case 'Gender':
+      //console.log("Inside serachTraits function, variable person has value:" + person)
+      results = searchByGender(people);
+      displayPeople (results);
+      genderResults += (results);
 
+    break;
 
+    case 'dob':
 
+    break;
 
+    case 'Occupation:':
+      results = searchByOccupation(people);
+    break;
 
+    case 'eyeColor':
 
+    break;
 
-
-
+      default:
+      return mainMenu(person, people); // ask again
+  }
+  return results;
+}
 
       // TODO: search by traits
 /////////////////////////////////////////////
+
+
+function searchByOccupation(people){
+  let input = promptFor("What is the person's occupation?", chars);
+
+  let foundOccupation = people.filter(function(person){
+
+    if(person.occupation === input){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundOccupation;
 }
 
-
 function searchByGender(people){
-  let wantedGender = promptFor("What is the person's gender?", chars);
+  let input = promptFor("What is the person's gender?", chars);
 
   let foundGender = people.filter(function(person){
-    if(person.gender === gender){
-      return true;
-    }
-    else{
-      return false;
-    }
-
-
-  })
-/////////////////////////////////////////////////////////////////
-
-function searchByDob(people){
-  let wantedDob = promptFor("What is the person's date of birth X/XX/XX?", chars);
-
-  let foundDob = people.filter(function(person){
-    if(person.dob === dob){
+    if(person.gender === input){
       return true;
     }
     else{
       return false;
     }
   })
-///////////////////////////////////////////////////////////////////
-
-function searchByHeight(people){
-  let wantedHeight = promptFor("What is the person's height in inches?", chars);
-
-  let foundHeight = people.filter(function(person){
-    if(person.height === height){
-      return true;
-    }
-      else{
-        return false;
-      }
-
-  })
-
+  console.log(foundGender);
+  return foundGender;
+}
 ////////////////////////////////////////////////////////////////////
 
 
@@ -189,6 +205,4 @@ function searchByHeight(people){
 
 // function searchByOccupation
 
-// function searchByParents
-
-// function searchByCurrentSpouse
+// function searchByParent
