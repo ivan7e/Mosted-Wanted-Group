@@ -1,6 +1,9 @@
 "use strict"
 /*
-Build all of your functions for displaying and gathering information below (GUI).
+set up second .js file to practice code within.
+build function to search by traits.
+people is an object that represents data.
+person is a found array within the people object.
 */
 
 // app is the function called to start the entire application
@@ -13,6 +16,24 @@ function app(people){
       break;
     case 'no':
 
+        askTraits = prompt("Which trait do you want to search by? Height, Weight, Eye color, or Occupation?");
+        let askTraits();
+        
+        if askTraits = "Height"{
+        
+            let findTraits = people.filter(function(person){
+        
+            if(person.height === height {
+
+              return person;
+            }
+            findTraits;
+
+            else{
+                alert("Too bad sucka");
+            }
+    
+          })
       break;
       default:
     app(people); // restart app
@@ -35,26 +56,25 @@ function mainMenu(person, people){
 
   let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
+
+
   switch(displayOption){
     case "info":
       displayPerson(person);
       console.log(person);
     break;
-
     case "family":
       console.log(person.parents[0]);
-      console.log(person.parents[1]);      
+      console.log(person.parents[1]);    
       console.log(person.currentSpouse);
+      searchById;
     break;
-
     case "descendants":
     // TODO: get person's descendants
     break;
-
     case "restart":
     app(people); // restart
     break;
-    
     case "quit":
     return; // stop execution
     default:
@@ -74,6 +94,8 @@ function searchByName(people){
       return false;
     }
   })
+  // TODO: find the person using the name they entered
+  
   return foundPerson[0];//this is an array
 }
 
@@ -96,6 +118,7 @@ function displayPerson(person){
   personInfo += "Occupation: " + person.occupation + "\n";
   personInfo += "Parents: " + person.parents + "\n";
   personInfo += "Current Spouse" + person.currentSpouse + "\n";
+
   alert(personInfo);
 }
 
@@ -116,3 +139,20 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+
+
+
+function searchById(people){
+
+
+    let foundId = people.filter(function(person){
+      if(person.id === id){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+    return foundId[0];
+  
+  }
