@@ -1,5 +1,5 @@
 "use strict";
-
+let searchedPerson = [];
 function app(people) {
   let searchType = promptFor(
     "Do you know the name of the person you are looking for? Enter 'yes' or 'no'",
@@ -43,24 +43,26 @@ function mainMenu(person, people) {
       console.log(person);
       break;
 
-    case "family":
-      alert("This is a parent: " + (searchById(person.parents[1], people)));
-      alert("This is a parent: " + (searchById(person.parents[0], people)));
-      alert(
-        "This is a spouse: " + searchById(person.currentSpouse, people)
-      );
+      case "family":
+
+      people.filter( item => {
+        iterateObject(item);
+      })
+        function iterateObject(obj) {
+          for(parents in obj) {
+           if(typeof(obj[prop]) == "object"){
+             iterateObject(obj[prop]);
+           } else {
+             if(prop == "currentSpouse" || prop == "parents") {
+              alert(prop);
+              return prop;
+             }
+           }
+         }
+       }
+      alert("This is a parent: " + person.parents[0] + person.parents[1]);
 
       break;
-
-    // case "descendants":
-    //   console.log("This is a parent: " + searchById(person.parents[1], people));
-    //   console.log("This is a parent: " + searchById(person.parents[0], people));
-    //   console.log(
-    //     "This is a grandparent: " +
-    //       searchById(person.parents[0](person.parents[0]), people)
-    //   );
-
-    //   break;
 
     case "restart":
       app(people);
@@ -86,7 +88,6 @@ function searchByName(people) {
   });
   return foundPerson[0];
 }
-
 
 function displayPeople(people) {
   alert(
@@ -135,146 +136,161 @@ let dobResults = [];
 let occupationResults = [];
 let eyeColorResults = [];
 
+
 function searchTraits(people) {
   let findTraits = promptFor(
     "Search by 'Gender', 'Height', 'Weight', 'dob', 'eyeColor', 'Occupation'.",
     chars
   );
-  let results = [];
+  let results;
   switch (findTraits) {
     case "Height":
       results = searchByHeight(people);
       displayPeople(results);
       heightResults += results;
-      findTraits;
+      findTraits();
       break;
+
     case "Weight":
       results = searchByWeight(people);
       displayPeople(results);
       weightResults += results;
-      findTraits;
+      findTraits();
       break;
+
     case "Gender":
       results = searchByGender(people);
       displayPeople(results);
       genderResults += results;
-      findTraits;
+      findTraits();
       break;
+
     case "dob":
       results = searchByDob(people);
       displayPeople(results);
       dobResults += results;
-      findTraits;
+      findTraits();
       break;
+
     case "Occupation":
       results = searchByOccupation(people);
       displayPeople(results);
       foundOccupation += results;
-      findTraits;
+      findTraits();
       break;
+
     case "eyeColor":
       results = searchByEyeColor(people);
       displayPeople(results);
-      eyeColorResults += results;
-      findTraits; // added this trying to get search results to list more than one thing.
-
-    case "Exit": // Case exit, to get out of loop...
+      eyeColorResults += traitResults;
+      searchTraits(traitResults); // added this trying to get search results to list more than one thing.
+      
+    case "Exit":
       return mainMenu(person, people);
     default:
-      alert ("Your input is invalid.")
+      alert("Your input is invalid.");
       return mainMenu(person, people);
   }
-  if (searchTraits.results.length == 1){
-    
-    alert ("Here is your result " + searchTraits(results))
+  if (searchTraits.results.length == 1) {
+    alert("Here is your result " + searchTraits(results));
+  } else {
+    return searchTraits(results);
   }
-    else
-    {
-  return searchTraits(results);
-}
 
-function searchByHeight(people) {
-  let input = promptFor("What is the person's height in inches?", chars);
-  let foundHeight = people.filter(function (person) {
-    if (person.height === input) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-  console.log(foundHeight);
-  return foundHeight;
-}
-function searchByWeight(people) {
-  let input = promptFor("What is the person's weight in pounds?", chars);
-  let foundWeight = people.filter(function (person) {
-    if (person.weight === input) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-  console.log(foundWeight);
-  return foundWeight;
-}
+  function searchByHeight(people) {
+    let input = promptFor("What is the person's height in inches?", chars);
+   
+    let foundHeight = people.filter(function (person) {
+      if (person.height == input) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    console.log(foundHeight);
+    return foundHeight;
+  }
+  function searchByWeight(people) {
+    let input = promptFor("What is the person's weight in pounds?", chars);
+    let foundWeight = people.filter(function (person) {
+      if (person.weight === input) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    console.log(foundWeight);
+    return foundWeight;
+  }
+  // function stringToInteger(input) {
 
-function searchByGender(people) {
-  let input = promptFor("What is the person's gender?", chars);
-  let foundGender = people.filter(function (person) {
-    if (person.gender === input) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-  console.log(foundGender);
-  return foundGender;
-}
-function searchByDob(people) {
-  let input = promptFor("What is the person's date of birth XX/XX/XX?", chars);
-  let foundDob = people.filter(function (person) {
-    if (person.dob === input) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-  console.log(foundDob);
-  return foundDob;
-}
-function searchByOccupation(people) {
-  let input = promptFor("What is the person's occupation?", chars);
-  let foundOccupation = people.filter(function (person) {
-    if (person.occupation === input) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-  console.log(foundOccupation);
-  return foundOccupation;
-}
-function searchByEyeColor(people) {
-  let input = promptFor("What is the person's eye color?", chars);
-  let foundEyeColor = people.filter(function (person) {
-    if (person.eyeColor === input) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-  console.log(foundEyeColor);
-  return foundEyeColor;
-}
+  //   parseInt(input);
+  //   return results;
 
-function searchById(id, people) {
-  let foundId = people.filter(function (person) {
-    if (person.id === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  });
-  return foundId[0].firstName + " " + foundId[0].lastName;
-}
+  // }
+
+  function searchByGender(people) {
+    let input = promptFor("What is the person's gender?", chars);
+    let foundGender = people.filter(function (person) {
+      if (person.gender === input) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    console.log(foundGender);
+    return foundGender;
+  }
+  function searchByDob(people) {
+    let input = promptFor(
+      "What is the person's date of birth XX/XX/XX?",
+      chars
+    );
+    let foundDob = people.filter(function (person) {
+      if (person.dob === input) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    console.log(foundDob);
+    return foundDob;
+  }
+  function searchByOccupation(people) {
+    let input = promptFor("What is the person's occupation?", chars);
+    let foundOccupation = people.filter(function (person) {
+      if (person.occupation === input) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    console.log(foundOccupation);
+    return foundOccupation;
+  }
+  function searchByEyeColor(people) {
+    let input = promptFor("What is the person's eye color?", chars);
+    let foundEyeColor = people.filter(function (person) {
+      if (person.eyeColor == input) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    console.log(foundEyeColor);
+    return foundEyeColor;
+  }
+
+  function searchById(people) {
+    let varFamily = [];
+    let foundId = people.filter(function (person) {
+      if (person.id === people.parents[0] || people.parents[1]) {
+        varFamily.push(person);
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return varFamily;
+  }
 }
